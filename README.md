@@ -27,12 +27,12 @@ Identifiant : `Minigugus`, mot de passe : `test`.
  - Connexion
  - Déconnexion
  - Liste des jeux empruntés avec leur emprunteur
- - Ajouter un jeu
+ - Ajouter un jeu (bugué front)
  - Supprimer un jeu
  - Retourner un jeu
  - Emprunter un jeu (Via l'id de l'utilisateur)
  - Affichage de l'état d'un jeu
- - Recherche un jeu emprunté via `nom prénom` ou `nom du jeu`
+ - Recherche un jeu emprunté via `nom prénom` ou `nom du jeu` (Controller mais bugué front)
  - Trigger BDD qui banni utilisateur après 3 blâmes (Mais blâmes pas mis en place !)
 
 ## Adresse du serveur
