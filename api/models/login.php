@@ -12,7 +12,7 @@ try {
 
   if (count($res) === 0) {
     // Error : User not found
-    $error = "Invalid username or password";
+    $error = "Nom d'utilisateur ou mot de passe incorrect.";
     $httpCode = 401;
     return;
   }
@@ -21,14 +21,14 @@ try {
 
   if ($res['banned']) {
     // Error : User is banned
-    $error = "You are banned from the website.";
+    $error = "Vous êtes banni.";
     $httpCode = 403;
     return;
   }
   
   if (!password_verify($password, $res['password'])) {
     // Error : Bad password
-    $error = "Invalid username or password";
+    $error = "Nom d'utilisateur ou mot de passe incorrect.";
     $httpCode = 401;
     return;
   }

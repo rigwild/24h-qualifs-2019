@@ -24,7 +24,7 @@ if (!$json || empty($json['id_user']) || empty($json['toBan'])) {
 }
 
 $id_user = $json['id_user'];
-$to_ban = $json['to_ban'];
+$toBan = $json['toBan'];
 
 require __DIR__.'/../models/banUser.php';
   
