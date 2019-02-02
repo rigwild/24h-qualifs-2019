@@ -18,15 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] !== $requestType) {
 }
 
 // Check if the body of the request contains the needed data
-if (!$json || empty($json['id_user']) || empty($json['to_ban'])) {
+if (!$json || empty($json['id_jeu'])) {
   http_response_code(400);
   exit();
 }
 
-$id_user = $json['id_user'];
-$to_ban = $json['to_ban'];
+$id_jeu = $json['id_jeu'];
 
-require __DIR__.'/../models/banUser.php';
+require __DIR__.'/../models/returnGame.php';
   
 // The database returned an error
 if (isset($error))
@@ -34,6 +33,6 @@ if (isset($error))
 
 
 // Everything is fine, send the result
-echo json_encode($res);
+echo json_encode(true);
 
 ?>

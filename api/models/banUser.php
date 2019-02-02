@@ -6,10 +6,10 @@ $dbLink = new Database();
 
 try {
   $res = $dbLink->execute(
-    'UPDATE utilisateur SET banned = :toBan WHERE id_user = :id_user',
+    'UPDATE utilisateur SET banned = :to_ban WHERE id_user = :id_user',
     [
       'id_user' => $id_user,
-      'toBan' => $toBan
+      'to_ban' => $to_ban
     ]
   );
 } catch (PDOException $e) {
