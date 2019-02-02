@@ -36,9 +36,9 @@
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+          <input v-model="searchText" type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" >
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
+            <button class="btn btn-primary" type="button" @click.prevent="search(this.searchText).then(res => this.game = res)">
               <i class="fas fa-search"></i>
             </button>
           </div>
@@ -72,12 +72,6 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Jeu</span></a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>ON VERRA</span></a>
-        </li>
       </ul>
 
 
@@ -88,9 +82,27 @@
           <div v-if="notif.visible" class="alert" :class="[notif.type]" role="alert"> {{ notif.msg }} </div>
           <!-- DataTables Example -->
           <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i>
-              Les Jeux KGC</div>
+            <div class="card-header d-flex flex-row justify-content-space-between">
+              <div>
+                <i class="fas fa-table"></i>
+                Les Jeux KGC
+              </div>
+
+              <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <div class="input-group">
+                  <input v-model="add.name" type="text" class="form-control" placeholder="Nom du jeu" aria-label="Loan"
+                    aria-describedby="basic-addon2">
+                  <input v-model="add.value" type="text" class="form-control" placeholder="Valeur" aria-label="Loan"
+                    aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-success" type="button" @click.prevent="addGame(add.name,add.value)">
+                      Ajouter
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
@@ -122,7 +134,7 @@
                       <!-- Component à dupliquer v-for -->
                       <td>{{ ++index }}</td>
                       <td>{{ item.nom_jeu }}</td>
-                      <td>{{ item.etat }}</td>
+                      <td>{{ etat[item.etat] }}</td>
                       <td>{{ item.valeur }} €</td>
 
                       <td v-if="item.emprunte" class="alert alert-danger">Emprunté</td>
@@ -230,6 +242,7 @@
   <script src="../js/vue.js"></script>
   <script src="../js/app.js"></script>
   <script src="../js/jeu.js"></script>
+  <script src="../js/search.js"></script>
 
 
 </body>

@@ -32,7 +32,13 @@ new Vue({
             user: {
                 username: ''
             },
-            id_user: []
+            id_user: [],
+            etat: ['Neuf','Presque Neuf','Passable','Abimé','Très Abimé','Détruit'],
+            add: {
+                name : '',
+                value: ''
+            },
+            searchText: ''
         }
     },
 
@@ -68,7 +74,9 @@ new Vue({
                   id_jeu: gameId
                 });
                 if (res) {
-                    this.game = res;
+                    this.notif.visible = true
+                    this.notif.msg = "La jeu a été emprunté !"
+                    this.notif.type = 'alert-success'
                 }
             } catch (err) {
                 this.notif.visible = true
@@ -76,6 +84,8 @@ new Vue({
                 this.notif.type = 'alert-danger'
             }
             this.id_user = [];
+            await this.getGame();
+
         },
 
         async returnGame(gameId) {
@@ -84,14 +94,37 @@ new Vue({
                   id_jeu: gameId
                 });
                 if (res) {
-                    this.game = res;
+                    this.notif.visible = true
+                    this.notif.msg = "La jeu a été rendu !"
+                    this.notif.type = 'alert-success'
                 }
             } catch (err) {
                 this.notif.visible = true
                 this.notif.msg = err.message
                 this.notif.type = 'alert-danger'
             }
-            this.id_user = [];
+            await this.getGame();
+
+        },
+
+        async addGame(name, value) {
+            try {
+                const res = await apiCall('addGame', {
+                    nom_jeu: name,
+                    etat: 0,
+                    valeur: parseFloat(value, 10)
+                });
+                if (res) {
+                    this.notif.visible = true
+                    this.notif.msg = "La jeu a été ajouté !"
+                    this.notif.type = 'alert-success'
+                }
+            } catch (err) {
+                this.notif.visible = true
+                this.notif.msg = err.message
+                this.notif.type = 'alert-danger'
+            }
+            await this.getGame();
         },
 
         async deleteGame(gameId) {
@@ -109,6 +142,8 @@ new Vue({
                 this.notif.msg = err.message
                 this.notif.type = 'alert-danger'
             }
+            await this.getGame();
+
         },
 
         // Set the notification
@@ -123,7 +158,19 @@ new Vue({
             localStorage.clear()
             await fetch(apiUrl('disconnect'))
             window.location.href = '../index.html'
-        }
+        },
+        search: text => Promise.all([
+            apiCall('searchLoan', {
+                jeu_nom: false,
+                prenom: `%${text}%`,
+                nom: `%${text}%`
+            }),
+            apiCall('searchLoan', {
+                jeu_nom: true,
+                prenom: `%${text}%`,
+                nom: `%${text}%`
+            })
+        ]).then(arr => [ ...(arr||[])[0], ...(arr[1]||[]) ])
     }
 })
 
