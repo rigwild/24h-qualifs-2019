@@ -6,7 +6,7 @@ $dbLink = new Database();
 
 try {
   // Check if user to get the messages from exists
-  $res = $dbLink->select('SELECT * FROM jeu');
+  $res = $dbLink->select('SELECT * FROM utilisateur');
 } catch (PDOException $e) {
   $error = $e->getMessage();
 }
