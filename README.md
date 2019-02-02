@@ -21,7 +21,7 @@ Un jeu de test est fournis dans la base de données.
 Identifiants de connexion administrateur :
 Identifiant : `Minigugus`, mot de passe : `test`.
 
-(Pour les )
+(Pour les id_user, ils vont de 7 à 12 dans la bdd !)
 
 ## Fonctionnalités
  - Connexion
