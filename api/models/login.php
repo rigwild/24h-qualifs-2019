@@ -6,8 +6,8 @@ $dbLink = new Database();
 
 try {
   $res = $dbLink->select(
-    'SELECT * FROM user WHERE pseudo = :pseudo',
-    ['pseudo' => $pseudo]
+    'SELECT * FROM utilisateur WHERE username = :username',
+    ['username' => $username]
   );
 
   if (count($res) === 0) {
@@ -19,7 +19,7 @@ try {
 
   $res = $res[0];
 
-  if ($res['is_banned']) {
+  if ($res['banned']) {
     // Error : User is banned
     $error = "You are banned from the website.";
     $httpCode = 403;
@@ -35,8 +35,8 @@ try {
 
   // We remove useless infos for $_SESSION
   $res = [
-    'id' => $res['id'],
-    'pseudo' => $res['pseudo']
+    'id_user' => $res['id_user'],
+    'username' => $res['username']
   ];
 } catch (PDOException $e) {
   $error = $e->getMessage();

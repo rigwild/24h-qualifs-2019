@@ -18,12 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] !== $requestType) {
 }
 
 // Check if the body of the request contains the needed data
-if (!$json || empty($json['pseudo']) || empty($json['password'])) {
+if (!$json || empty($json['username']) || empty($json['password'])) {
   http_response_code(400);
   exit();
 }
 
-$pseudo = $json['pseudo'];
+$username = $json['username'];
 $password = $json['password'];
 
 require __DIR__.'/../models/login.php';
